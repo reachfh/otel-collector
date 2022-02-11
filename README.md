@@ -4,8 +4,8 @@ Dev configuration for OpenTelemetry collector.
 This runs a collector which receives traces from an application and sends them
 to a local [Jaeger](https://www.jaegertracing.io/) instance, DataDog, or AWS X-Ray.
 
-This is using the AWS Collector, which has support for additional
-back end services in addition to OpenTelemetry.
+This is using the [AWS Distro for OpenTelemetry Collector](https://aws-otel.github.io/docs/getting-started/collector), which has
+support for additional back end services in addition to OpenTelemetry.
 
 ```shell
 docker-compose up aws-otel-collector
