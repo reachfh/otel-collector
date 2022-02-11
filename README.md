@@ -4,6 +4,11 @@ Configuration for OpenTelemetry collector.
 This runs a collector which receives traces from an application and sends them
 to a local Jaeger instance, DataDog, or AWS X-Ray.
 
+
+```shell
+ docker-compose up aws-otel-collector
+```
+
 For DataDog, add a `.env` file with your key:
 
 ```yaml
