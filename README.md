@@ -2,7 +2,7 @@
 Dev configuration for OpenTelemetry collector.
 
 This runs a collector which receives traces from an application and sends them
-to a local Jaeger instance, DataDog, or AWS X-Ray.
+to a local [Jaeger](https://www.jaegertracing.io/) instance, DataDog, or AWS X-Ray.
 
 This is using the AWS Collector, which has support for additional
 back end services in addition to OpenTelemetry.
