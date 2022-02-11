@@ -1,0 +1,91 @@
+---
+version: "3"
+services:
+  # Jaeger
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      # - "16685:16685" # gRPC serve frontend
+      - "16686:16686" # HTTP UI
+      - "5778:5778"   # HTTP serve configs
+      - "14250:14250" # Accept Jaeger/gRPC model.proto
+      # - "14268:14268 " Jaeger/HTTP accept jaeger.thrift directly from clients
+      # - "6831:6831/udp" # Accept Jaeger/Compact thrift protocol
+
+# 5775	UDP	accept zipkin.thrift over compact thrift protocol (deprecated, used by legacy clients only)
+# 6831	UDP	accept jaeger.thrift over compact thrift protocol
+# 6832	UDP	accept jaeger.thrift over binary thrift protocol
+# 5778	HTTP serve configs jaeger-agent
+# 16686	HTTP serve frontend
+# 14268	HTTP accept jaeger.thrift directly from clients
+# 14250	HTTP accept model.proto
+# 9411	HTTP Zipkin compatible endpoint (optional)
+
+# -e COLLECTOR_ZIPKIN_HOST_PORT=:9411 \
+#   -p 5775:5775/udp \
+#   -p 6831:6831/udp \
+#   -p 6832:6832/udp \
+#   -p 5778:5778 \
+#   -p 14268:14268 \
+#   -p 14269:14269 \
+#   jaegertracing/all-in-one:1.30
+
+  # https://github.com/aws-observability/aws-otel-collector/blob/main/docs/developers/docker-demo.md
+  aws-otel-collector:
+    image: public.ecr.aws/aws-observability/aws-otel-collector:latest
+    # image: public.ecr.aws/aws-observability/aws-otel-collector:v0.15.1
+    ports:
+      - "4317:4317"     # OTLP over gRPC
+      - "4318:4318"     # OTLP over HTTP
+      - "55680:55680"   # OTLP over gRPC (legacy)
+      - "55681:55681"   # OTLP over HTTP (legacy)
+      - "8888:8888"     # Prometheus metrics exposed by the collector
+      - "8889:8889"     # Prometheus exporter metrics
+      - "13133:13133"   # health_check extension
+      - "55679:55679"   # zpages extension
+    command: ["--config=/etc/otel-collector-config.yml"]
+    volumes:
+      - ./aws-collector-config.yml:/etc/otel-collector-config.yml
+      - ./extraconfig.txt:/opt/aws/aws-otel-collector/etc/extracfg.txt
+    environment:
+      - DD_SERVICE=atp
+      - DD_VERSION
+      - DD_API_KEY
+      - DD_HOST=dev-box
+      - DD_HOSTNAME=dev-box
+      - DD_ENV=development
+      - DD_TAGS=environment:development
+      - DD_APM_ENABLED=false
+      - DD_APM_ENV=development
+    depends_on:
+      - jaeger
+
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    command: ["--config=/etc/otel-collector-config.yml"]
+    volumes:
+      - ./otel-collector-config.yml:/etc/otel-collector-config.yml
+      # - ${PWD}/otel-collector-config.yml:/etc/otel-collector-config.yml
+    ports:
+      - "4317:4317"     # OTLP over gRPC
+      - "4318:4318"     # OTLP over HTTP
+      # - "55680:55680"   # OTLP over gRPC (legacy)
+      - "55681:55681"   # OTLP over HTTP (legacy)
+      # - "9411:9411"   # Zipkin/HTTP
+      - "1888:1888"   # pprof extension
+      - "8888:8888"   # Prometheus metrics exposed by the collector
+      - "8889:8889"   # Prometheus exporter metrics
+      - "13133:13133" # health_check extension
+      - "55679:55679" # zpages extension
+    environment:
+      - DD_SERVICE=atp
+      - DD_VERSION
+      - DD_API_KEY
+      - DD_HOST=dev-box
+      - DD_HOSTNAME=dev-box
+      - DD_ENV=development
+      - DD_TAGS=environment:development
+      - DD_APM_ENABLED=false
+      - DD_APM_ENV=development
+    depends_on:
+      - jaeger
