@@ -13,9 +13,6 @@ For DataDog, add a `.env` file with your key:
 
 ```yaml
 # SECRET ENV VARIABLES
-#
-# The variables below are empty for security reasons, you can copy this key from other services,
-# since there is no vault file created for datadog yet:
 
 DD_API_KEY="abc123"
 
@@ -23,7 +20,7 @@ DD_API_KEY="abc123"
 #
 # The variables below are not secret and have default values, you can change it if you need to:
 
-# you can enable or disable sending development env traces to Datadog
+# You can enable or disable sending development env traces to Datadog
 # by setting this variable with true or false (true enables, false disables).
 DD_APM_ENABLED=true
 
