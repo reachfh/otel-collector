@@ -9,7 +9,7 @@ support for additional back end services in addition to OpenTelemetry.
 
 ```shell
 docker-compose up aws-otel-collector
-open https://localhost:16686/
+open http://localhost:16686/
 ```
 
 For DataDog, add a `.env` file which sets DataDog environment vars, most important of
