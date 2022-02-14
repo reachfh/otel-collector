@@ -40,7 +40,7 @@ DD_LOGS_ENABLED=true
 ```
 
 ```shell
-docker-compose run datadog-agent
+docker-compose run --service-ports datadog-agent
 ```
 
 TODO:
