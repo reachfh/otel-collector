@@ -93,26 +93,29 @@ services:
   # https://docs.datadoghq.com/getting_started/agent/
   # https://github.com/DataDog/datadog-agent/blob/main/pkg/config/config_template.yaml
   datadog-agent:
-    image: datadog/agent:7
+    # image: datadog/agent:7
+    image: public.ecr.aws/datadog/agent:7
     volumes:
       - ./datadog.yml:/etc/datadog-agent/datadog.yaml
     ports:
-      - "8125:8125/udp"
-      - "5002:5002"
-      - "8126:8126" # trace receiver port
-      - "8125:8125" # dogstatsd
-      - "4317:4317"     # OTLP over gRPC
-      - "4318:4318"     # OTLP over HTTP
+      - "4317:4317"       # OTLP over gRPC
+      - "4318:4318"       # OTLP over HTTP
+      - "8125:8125/udp"   # dogstatsd
+      - "8126:8126"       # trace receiver port
+      - "5002:5002"       # web ui
     environment:
       - DD_API_KEY
       - DD_SITE
-      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
-      - DD_HOSTNAME=dev-box
+      # - DD_HOSTNAME=dev-box
+      - DD_HOSTNAME
       - DD_TAGS=environment:development
       - DD_ENV=development
       - DD_CHECKS_TAG_CARDINALITY=high
-      - DD_DOGSTATSD_TAG_CARDINALITY=high
       - DD_CLOUD_PROVIDER_METADATA=aws
       - DD_GUI_PORT=5002
       - DD_LOGS_ENABLED
-      - DD_LOG_LEVEL
+      - DD_LOG_LEVEL=debug
+      - DD_APM_ENABLED=true
+      - DD_APM_NON_LOCAL_TRAFFIC=true
+      - DD_DOGSTATSD_TAG_CARDINALITY=high
+      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
