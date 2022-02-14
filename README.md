@@ -33,4 +33,16 @@ DD_HOST=jake-dev
 DD_TAGS=environment:development
 DD_ENV=development
 DD_APM_ENV=development
+# DD_CHECKS_TAG_CARDINALITY=high
+# DD_DOGSTATSD_TAG_CARDINALITY=high
+DD_LOGS_ENABLED=true
+# DD_LOG_LEVEL=debug
 ```
+
+```shell
+docker-compose run datadog-agent
+```
+
+TODO:
+
+* https://docs.datadoghq.com/tracing/connect_logs_and_traces/opentelemetry/
