@@ -97,12 +97,14 @@ services:
     image: public.ecr.aws/datadog/agent:7
     volumes:
       - ./datadog.yml:/etc/datadog-agent/datadog.yaml
+      - ./datadog-conf.yml:/etc/datadog-agent/conf.d/app.d/conf.yml
     ports:
       - "4317:4317"       # OTLP over gRPC
       - "4318:4318"       # OTLP over HTTP
       - "8125:8125/udp"   # dogstatsd
       - "8126:8126"       # trace receiver port
       - "5002:5002"       # web ui
+      - "10518:10518"     # logs
     environment:
       - DD_API_KEY
       - DD_SITE
@@ -119,3 +121,4 @@ services:
       - DD_APM_NON_LOCAL_TRAFFIC=true
       - DD_DOGSTATSD_TAG_CARDINALITY=high
       - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
+      - DD_LOGS_ENABLED=true

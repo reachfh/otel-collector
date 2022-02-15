@@ -1,0 +1,5 @@
+logs:
+  - type: tcp
+    port: 10518
+    service: "phoenix_container_example"
+    source: "phoenix_container_example"
