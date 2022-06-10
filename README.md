@@ -46,6 +46,16 @@ DD_LOGS_ENABLED=true
 docker-compose run --service-ports datadog-agent
 ```
 
-TODO:
+## Links
+
+* https://aws-otel.github.io/docs/getting-started/collector
+* https://github.com/aws-observability/aws-otel-collector
+* https://opentelemetry.io/docs/collector/configuration/
+* https://docs.datadoghq.com/tracing/setup_overview/open_standards/
+* https://github.com/aws-observability/aws-otel-collector/blob/main/config.yaml
+* https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/datadogexporter
+* https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/datadogexporter/example/config.yaml
+
+## TODO
 
 * https://docs.datadoghq.com/tracing/connect_logs_and_traces/opentelemetry/
