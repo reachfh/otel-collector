@@ -1,11 +1,14 @@
 # otel-collector
-Dev configuration for OpenTelemetry collector.
 
-This runs a collector which receives traces from an application and sends them
-to a local [Jaeger](https://www.jaegertracing.io/) instance, DataDog, or AWS X-Ray.
+This repository configures the
+[AWS Distro for OpenTelemetry Collector](https://aws-otel.github.io/docs/getting-started/collector)r
+to run in a container.
 
-This is using the [AWS Distro for OpenTelemetry Collector](https://aws-otel.github.io/docs/getting-started/collector), which has
-support for additional back end services in addition to OpenTelemetry.
+The collector receives traces from an application and sends them to a back end service,
+including configuration for [Jaeger](https://www.jaegertracing.io/), DataDog, and AWS X-Ray.
+
+The AWS distro is based on the OpenTelemetry upstream project, with the addition of a number
+of other protocols.
 
 ```shell
 docker-compose up aws-otel-collector
@@ -15,7 +18,7 @@ open http://localhost:16686/
 For DataDog, add a `.env` file which sets DataDog environment vars, most important of
 which is the API key:
 
-```yaml
+```shell
 # SECRET ENV VARIABLES
 
 DD_API_KEY="abc123"
