@@ -96,15 +96,17 @@ services:
     # image: datadog/agent:7
     image: public.ecr.aws/datadog/agent:7
     volumes:
+      # Main Datadog config
       - ./datadog.yml:/etc/datadog-agent/datadog.yaml
+      # Log config for service for app
       - ./datadog-conf.yml:/etc/datadog-agent/conf.d/app.d/conf.yml
     ports:
       - "4317:4317"       # OTLP over gRPC
       - "4318:4318"       # OTLP over HTTP
-      - "8125:8125/udp"   # dogstatsd
-      - "8126:8126"       # trace receiver port
+      - "8125:8125/udp"   # Datadog DogStatsD metrics receier
+      - "8126:8126"       # Datadog trace receiver
       - "5002:5002"       # web ui
-      - "10518:10518"     # logs
+      - "10518:10518"     # Datadog log receiver
     environment:
       - DD_API_KEY
       - DD_SITE
