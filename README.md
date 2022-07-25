@@ -10,7 +10,7 @@ including configuration for [Jaeger](https://www.jaegertracing.io/), DataDog, an
 The AWS distro is based on the OpenTelemetry upstream project, with the addition of a number
 of other protocols.
 
-```shell
+```console
 docker-compose up aws-otel-collector
 open http://localhost:16686/
 ```
@@ -18,7 +18,7 @@ open http://localhost:16686/
 For DataDog, add a `.env` file which sets DataDog environment vars, most important of
 which is the API key:
 
-```shell
+```console
 # SECRET ENV VARIABLES
 
 DD_API_KEY="abc123"
@@ -42,7 +42,7 @@ DD_LOGS_ENABLED=true
 # DD_LOG_LEVEL=debug
 ```
 
-```shell
+```console
 docker-compose run --service-ports datadog-agent
 ```
 
