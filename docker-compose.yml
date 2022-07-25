@@ -117,10 +117,10 @@ services:
       - DD_CHECKS_TAG_CARDINALITY=high
       - DD_CLOUD_PROVIDER_METADATA=aws
       - DD_GUI_PORT=5002
-      - DD_LOGS_ENABLED
-      - DD_LOG_LEVEL=debug
+        # Agent log_level
+      - DD_LOG_LEVEL
+      - DD_LOGS_ENABLED=true
       - DD_APM_ENABLED=true
       - DD_APM_NON_LOCAL_TRAFFIC=true
       - DD_DOGSTATSD_TAG_CARDINALITY=high
       - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
-      - DD_LOGS_ENABLED=true
