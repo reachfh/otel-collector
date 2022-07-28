@@ -1,22 +1,27 @@
 # otel-collector
 
 This repository configures the
-[AWS Distro for OpenTelemetry Collector](https://aws-otel.github.io/docs/getting-started/collector)r
-to run in a container.
+[AWS Distro for OpenTelemetry Collector](https://aws-otel.github.io/docs/getting-started/collector),
+[Jaeger](https://www.jaegertracing.io/) UI, and [Datadog agent](https://docs.datadoghq.com/agent/)
+ to run in containers.
 
-The collector receives traces from an application and sends them to a back end service,
-including configuration for [Jaeger](https://www.jaegertracing.io/), DataDog, and AWS X-Ray.
+The collector receives traces from an application and sends them to a back end service.
+This includes configuration for [Jaeger](https://www.jaegertracing.io/), Datadog, and AWS X-Ray.
 
-The AWS distro is based on the OpenTelemetry upstream project, with the addition of a number
-of other protocols.
+
+## AWS Distro for OpenTelemetry Collector
+
+The AWS "distro" is based on the OpenTelemetry upstream project, with the
+addition of a number of other protocols. It is configured to receive
+OpenTelemetry traces and send them to Datadog.
 
 ```console
 docker-compose up aws-otel-collector
-open http://localhost:16686/
 ```
 
-For DataDog, add a `.env` file which sets DataDog environment vars, most important of
-which is the API key:
+## Datadog agent
+
+Add a `.env` file which sets Datadog environment vars, most important of which is the API key:
 
 ```console
 # SECRET ENV VARIABLES
@@ -44,6 +49,12 @@ DD_LOGS_ENABLED=true
 
 ```console
 docker-compose run --service-ports datadog-agent
+```
+
+## Jaeger
+
+```console
+open http://localhost:16686/
 ```
 
 ## Links
